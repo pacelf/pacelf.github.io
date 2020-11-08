@@ -1,0 +1,58 @@
+// app global css
+
+html {
+  max-width: 1400px;
+  margin: 0 auto;
+  // background: #EEEEEE; /* Fills the page */
+  background-image: url("../statics/background.png");
+  background-repeat: repeat;
+}
+
+// The Partners logos
+.q-img {
+  margin: 50px;
+}
+
+.logos {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+@font-face {
+    font-family: 'Roboto', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: local('Roboto'), local('Roboto-Regular'), url(https://fonts.gstatic.com/s/roboto/v19/KFOmCnqEu92Fr1Mu7GxKKTU1Kvnz.woff2) format('woff2');
+}
+
+// styling the data tables on the items
+dl {
+  display: flex;
+  flex-wrap: wrap;
+}
+dt {
+  width: 33%;
+  font-weight: bolder
+}
+
+dd {
+  max-height: 150px;
+  overflow-y:auto;
+  overflow-x:hidden;
+  margin-left: auto;
+  width: 66%;
+}
+
+// removing link appearance on h6
+h6 a:hover, a:visited, a:link, a:active
+{
+    text-decoration: none;
+    // color: black;
+}
+
+h6{
+  color: black;
+}
+

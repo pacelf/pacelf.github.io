@@ -1,0 +1,22 @@
+[tool.poetry]
+name = "pacelf-digital-library"
+version = "0.1.0"
+description = "Converting some xml to JSON"
+authors = ["Steve Vandervalk <git@stevevandervalk.com>"]
+license = "MIT"
+
+[tool.poetry.dependencies]
+python = "^3.8"
+xmltodict = "^0.12.0"
+xlrd = "^1.2.0"
+numpy = "1.18.0"
+pandas = "^1.1.3"
+markdown = "^3.3.3"
+structlog = "^20.1.0"
+colorama = "^0.4.4"
+
+[tool.poetry.dev-dependencies]
+
+[build-system]
+requires = ["poetry>=0.12"]
+build-backend = "poetry.masonry.api"
