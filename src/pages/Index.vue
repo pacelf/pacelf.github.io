@@ -13,7 +13,7 @@
           </div> -->
           <div class="text-h3 text-center">
             <p>
-              The PacELF Endgame Project And Digital Library
+              The PacELF Endgame Project and Digital Library
             </p>
           </div>
           <br>
@@ -28,7 +28,7 @@
 
         <q-card-section>
 
-          <h6 class="text-center"> Pacific Programme for the Elimination of Lympathic Filariasis </h6>
+          <h6 class="text-center"> Pacific Programme for the Elimination of Lymphatic Filariasis </h6>
 
           <p>
             PacELF worked within the framework of the <a href="https://www.who.int/lymphatic_filariasis/elimination-programme/en/"> WHO Global Programme to Eliminate Filariasis</a>, the <a href="https://www.who.int/about/regions/wpro/en/"> WHO Regional Office for the Western Pacific </a> and the <a href="https://www.who.int/westernpacific/about/how-we-work/pacific-support"> WHO Division of Pacific Technical Support</a>.
