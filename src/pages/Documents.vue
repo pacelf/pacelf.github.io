@@ -151,7 +151,6 @@
 <style>
 </style>
 <script>
-// import rawJson from './pacelfv3.json'
 import rawJson from './pacelfv4.json'
 import ItemsJsFacets from './ItemsJsFacets.vue'
 
