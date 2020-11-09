@@ -25,11 +25,11 @@ installed, run the following command:
 brew install node yarn python3
 ```
 
-To set up the project and its dependencies, run the following commands:
+To set up the project and install its dependencies, run the following commands:
 
 ```shell
-git clone git@github.com:jcu-eresearch/marine-conservation-planning-database.git
-cd marine-conservation-planning-database
+git clone git@github.com:pacelf/pacelf.github.io.git
+cd pacelf.github.io
 yarn
 ```
 
@@ -70,23 +70,12 @@ the built site.
 
 Currently nothing is setup automatically.
 
-Deploys are done using `netlify-cli` and `netlify deploy --dir=dist/pwa/ --prod`.
-
-TODO: Setup GitHub and Netlify
-Once you are happy with the results, you can then commit your changes to the
-`master` branch and push to GitHub. Netlify will then build and deploy the
-site at its end automatically.
+Development deploys are done using `netlify-cli` and `netlify deploy --dir=dist/pwa/`.
 
 ## Deployment
 
-The project is currently hooked up to eResearch's Netlify account from the
-GitHub repository.
-
-Netlify is configured to build and deploy commits automatically pushed to the
-`master` branch.
-
-Any other static site hosting (such as GitHub Pages) can also be used
-to host the output folder from the build step (`dist/pwa`).
+Once you are happy with local version, copy the output of `yarn build` and overwrite the contents of the
+`gh-pages` branch, commit it and push to GitHub. GitHub Pages are configured to serve the content of `gh-pages` branch at `https://pacelf.github.io`.
 
 
 ### Existing data
