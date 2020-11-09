@@ -15,7 +15,7 @@ CSV_FILENAME = "./PacELF_Phase4/modified/Phase_4_added_naming_conventions.csv"
 # path to the folder holding the output JSON
 OUTPUT_DIRECTORY = "./src/pages/"
 
-CONTACT_PACELF_AT_JCU_TEXT = "Please email pacelf@jcu.edu.au to request this item, quoting the PacELF ID number {}.  We will do our best to make it available, by scanning if necessary and redacting any personal identifying information."
+CONTACT_PACELF_AT_JCU_TEXT = "Please email pacelf@jcu.edu.au to request this item, quoting the PacELF ID number {}.  \nWe will do our best to make it available, by scanning if necessary and redacting any personal identifying information."
 
 OPEN_VIA_PUBLISHER_TEXT = "This document may be available to you depending on your personal or institution's subscriptions.  If not, please email pacelf@jcu.edu.au with the PacELF ID for assistance."
 

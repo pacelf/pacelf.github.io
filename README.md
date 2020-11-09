@@ -1,7 +1,5 @@
 # PacELF Digital Library
 
-<!-- [![Netlify Status](https://api.netlify.com/api/v1/badges/f040db2b-3186-43b4-b3e7-0ebf7b6b3409/deploy-status)](https://app.netlify.com/sites/marinescp/deploys) -->
-
 A static web site built using [Quasar
 JS](https://quasar.dev/quasar-cli/installation) framework and ItemsJS to
 index, search and download documents.
