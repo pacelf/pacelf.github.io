@@ -4,6 +4,7 @@ import os
 from pathlib import Path
 import csv
 import structlog
+from fpdf import FPDF
 
 # adds a JSON logger for giggles
 log = structlog.get_logger()
@@ -15,7 +16,7 @@ CSV_FILENAME = "./PacELF_Phase4/modified/Phase_4_added_naming_conventions.csv"
 # path to the folder holding the output JSON
 OUTPUT_DIRECTORY = "./src/pages/"
 
-CONTACT_PACELF_AT_JCU_TEXT = "Please email pacelf@jcu.edu.au to request this item, quoting the PacELF ID number {}.  \nWe will do our best to make it available, by scanning if necessary and redacting any personal identifying information."
+CONTACT_PACELF_AT_JCU_TEXT = "Please email pacelf@jcu.edu.au to request this item, quoting the PacELF ID number {}.\n We will do our best to make it available, by scanning if necessary and redacting any personal identifying information."
 
 OPEN_VIA_PUBLISHER_TEXT = "This document may be available to you depending on your personal or institution's subscriptions.  If not, please email pacelf@jcu.edu.au with the PacELF ID for assistance."
 
@@ -46,41 +47,34 @@ if __name__ == "__main__":
                 # TODO: extract this and the rest into a function once done.
 
                 log.msg("Access_Rights is Contact PacELF at JCU.")
-                log.msg("Starting to create placeholder txt file for data folder...")
+                log.msg(
+                    "Starting to create placeholder text PDF file for data folder..."
+                )
 
-                if row["PDF_file_name"]:
-                    log.msg(
-                        "PDF_file_name {} exists, using as .txt file name.".format(
-                            row["PDF_file_name"]
-                        )
-                    )
+                normalised_txt_file_name = "{}.pdf".format(
+                    row["ID"].replace(" ", "_").replace("/", "_")
+                )
+                log.msg("Using {} for txt file name.".format(normalised_txt_file_name))
 
-                    # extract existing name and web friendly name
-                    recorded_pdf_name = row["PDF_file_name"]
-                    normalised_pdf_file_name = (
-                        row["PDF_file_name"].replace(" ", "_").replace("/", "_")
-                    )
-                    normalised_txt_file_name = normalised_pdf_file_name.replace(
-                        ".pdf", ".txt"
-                    )
-                    with open(normalised_txt_file_name, "w") as text_file:
-                        print(
-                            CONTACT_PACELF_AT_JCU_TEXT.format(row["ID"]), file=text_file
-                        )
-                else:
-                    normalised_txt_file_name = "{}.txt".format(
-                        row["Title"].replace(" ", "_").replace("/", "_")
-                    )
-                    log.msg(
-                        "No file names exists, using {} for txt file name.".format(
-                            normalised_txt_file_name
-                        )
-                    )
+                pdf = FPDF()
+                pdf.add_page()
+                pdf.set_xy(0, 0)
+                pdf.set_font("arial", "B", 13.0)
+                pdf.multi_cell(
+                    h=5.0,
+                    align="L",
+                    w=0,
+                    txt=CONTACT_PACELF_AT_JCU_TEXT.format(row["ID"]),
+                    border=0,
+                )
 
-                    with open(normalised_txt_file_name, "w") as text_file:
-                        print(
-                            CONTACT_PACELF_AT_JCU_TEXT.format(row["ID"]), file=text_file
-                        )
+                pdf.output(normalised_txt_file_name, "F")
+
+                #  write content to .txt file
+                # with open(normalised_txt_file_name, "w") as text_file:
+                #     print(
+                #         CONTACT_PACELF_AT_JCU_TEXT.format(row["ID"]), file=text_file
+                #     )
 
                 if os.path.isfile(normalised_txt_file_name):
 
