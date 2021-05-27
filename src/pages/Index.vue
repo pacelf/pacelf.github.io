@@ -82,44 +82,19 @@
         <q-card-section class="logos">
 
           <q-img
-            src="statics/icons/jculogo.png"
+            src="statics/icons/jcu_nag_who_logo.png"
             class="responsive"
             spinner-color="white"
-            style="max-width: 420px"
-          />
-          <q-separator inset />
-          <q-img
-            src="
-            statics/icons/nagasaki_university_logo.gif"
-            spinner-color="white"
-            style="max-width: 250px"
-          />
-          <q-separator inset />
-          <q-img
-            padding
-            src="
-            statics/icons/ntd_support_centre_logo.png"
-            spinner-color="white"
-            style="max-width: 650px"
+            style="max-width: 1024px"
           />
           <q-separator inset />
 
           <q-img
             padding
             src="
-            statics/icons/usaid_logo.png"
+            statics/icons/usaid_neg_logo.png"
             spinner-color="white"
-            style="max-width: 450px"
-          />
-          <q-separator inset />
-
-          <q-img
-            padding
-            src="
-            statics/icons/who_logo.png"
-            spinner-color="white"
-            style="max-width: 420px"
-            :ratio="16/9"
+            style="max-width: 1024px"
           />
           <q-separator inset />
 
