@@ -56,26 +56,29 @@ To build the app for production, run the following:
 yarn build
 ```
 
-Check the resulting `dist/pwa` directory for the built application. To test
-serving the build as if from a webserver, run the following:
+The built application files are written to the `dist/pwa/` directory.
+
+To view this build, run:
 
 ```shell
 yarn start
 ```
 
-Then, you can open <http://localhost:4000/> in your browser and view and test
-the built site.
+Then, you can open <http://localhost:4000/> in your browser.
 
-### Netlify
-
-Currently nothing is setup automatically.
-
-Development deploys are done using `netlify-cli` and `netlify deploy --dir=dist/pwa/`.
 
 ## Deployment
 
-Once you are happy with local version, copy the output of `yarn build` and overwrite the contents of the
-`gh-pages` branch, commit it and push to GitHub. GitHub Pages are configured to serve the content of `gh-pages` branch at `https://pacelf.github.io`.
+Once you are happy with local version:
+
+1. Run `yarn build`.
+
+2. Copy the contents `dist/pwa/` and replace the entire contents of the
+`gh-pages` branch.
+
+2. Commit and push to the GitHub repository https://github.com/pacelf/pacelf.github.io.
+
+3. GitHub Pages are already configured to serve the content of `gh-pages` branch at `https://pacelf.github.io`. See the settings at https://github.com/pacelf/pacelf.github.io/settings/pages.
 
 
 ### Existing data
