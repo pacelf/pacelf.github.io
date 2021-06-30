@@ -19,7 +19,11 @@
           <br>
           <div>
 
-            <p>Our goal is to assist in achieving and documenting the elimination of lymphatic filariasis in the Pacific Region. We contribute to this by collating and synthesizing information in publications, and by making PacELF and other documents available. Much of our archive is not digitized but we will scan documents on request. Our address is pacelf@jcu.edu.au
+            <p>
+            Our goal is to assist in achieving and documenting the elimination of lymphatic filariasis in the Pacific Region. We contribute to this by collating and synthesizing information in publications, and by making PacELF and other documents available. Please refer to our <b><u><a href="https://pacelf.github.io/#/documents"> Library</a></u></b> to consult and request documents.
+            <br>
+            <br>
+            Much of our archive is not digitized but we will scan documents on request. Our address is pacelf@jcu.edu.au
             </p>
           </div>
         </q-card-section>
@@ -31,7 +35,7 @@
           <h6 class="text-center"> Pacific Programme for the Elimination of Lymphatic Filariasis </h6>
 
           <p>
-            PacELF worked within the framework of the <a href="https://www.who.int/lymphatic_filariasis/elimination-programme/en/"> WHO Global Programme to Eliminate Filariasis</a>, the <a href="https://www.who.int/about/regions/wpro/en/"> WHO Regional Office for the Western Pacific </a> and the <a href="https://www.who.int/westernpacific/about/how-we-work/pacific-support"> WHO Division of Pacific Technical Support</a>.
+            PacELF worked within the framework of the <a href="https://www.who.int/health-topics/lymphatic-filariasis#tab=tab_1"> WHO Global Programme to Eliminate Filariasis</a>, the <a href="https://www.who.int/westernpacific"> WHO Regional Office for the Western Pacific </a> and the <a href="https://www.who.int/westernpacific/about/how-we-work/pacific-support"> WHO Division of Pacific Technical Support</a>.
           </p>
 
           <p>
