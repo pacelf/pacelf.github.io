@@ -23,7 +23,7 @@
             Our goal is to assist in achieving and documenting the elimination of lymphatic filariasis in the Pacific Region. We contribute to this by collating and synthesizing information in publications, and by making PacELF and other documents available. Please refer to our <b><u><a href="https://pacelf.github.io/#/documents"> Library</a></u></b> to consult and request documents.
             <br>
             <br>
-            Much of our archive is not digitized but we will scan documents on request. Our address is pacelf@jcu.edu.au
+            Much of our archive is not digitized but we will scan documents on request. Our address is <a href="mailto:pacelf@jcu.edu.au">pacelf@jcu.edu.au</a>
             </p>
           </div>
         </q-card-section>
@@ -35,7 +35,7 @@
           <h6 class="text-center"> Pacific Programme for the Elimination of Lymphatic Filariasis </h6>
 
           <p>
-            PacELF worked within the framework of the <a href="https://www.who.int/health-topics/lymphatic-filariasis#tab=tab_1"> WHO Global Programme to Eliminate Filariasis</a>, the <a href="https://www.who.int/westernpacific"> WHO Regional Office for the Western Pacific </a> and the <a href="https://www.who.int/westernpacific/about/how-we-work/pacific-support"> WHO Division of Pacific Technical Support</a>.
+            PacELF worked within the framework of the <a href="https://www.who.int/health-topics/lymphatic-filariasis#tab=tab_1" target="_blank"> WHO Global Programme to Eliminate Filariasis</a>, the <a href="https://www.who.int/westernpacific" target="_blank"> WHO Regional Office for the Western Pacific </a> and the <a href="https://www.who.int/westernpacific/about/how-we-work/pacific-support" target="_blank"> WHO Division of Pacific Technical Support</a>.
           </p>
 
           <p>
@@ -46,11 +46,11 @@
           </p>
 
           <ul>
-            <li><a href="https://www.biomedcentral.com/collections/Filariasis">
+            <li><a href="https://www.biomedcentral.com/collections/Filariasis" target="_blank">
                 https://www.biomedcentral.com/collections/Filariasis</a>
             </li>
             <li>
-              <a href="https://tropmedhealth.biomedcentral.com/articles/10.1186/s41182-017-0075-4"> https://tropmedhealth.biomedcentral.com/articles/10.1186/s41182-017-0075-4</a>
+              <a href="https://tropmedhealth.biomedcentral.com/articles/10.1186/s41182-017-0075-4" target="_blank"> https://tropmedhealth.biomedcentral.com/articles/10.1186/s41182-017-0075-4</a>
             </li>
           </ul>
 
@@ -63,7 +63,7 @@
           <h6 class="text-center"> PacELF Digital Library </h6>
 
           <p>
-            To assist with documentation and validation of elimination, and to provide a historical record, this project has collected all available published and unpublished documents about filariasis in the Pacific, with a focus on the PacELF period 1999 to present. This searchable archive consists of electronic and hard copy peer-reviewed papers, WHO documents, and programme reports, including the personal collection of Dr Kazuyo Ichimori. Some are freely available, while for some access must be requested. A collection of hard copy documents is housed at James Cook University's Townsville Campus in the <a href="https://research.jcu.edu.au/who-collaborating-centres/tropicalmedicine">JCU WHO Collaborating Centre for Vector-Borne and Neglected Tropical Diseases (WHO-181)</a> and may be accessed by request to pacelf@jcu.edu.au
+            To assist with documentation and validation of elimination, and to provide a historical record, this project has collected all available published and unpublished documents about filariasis in the Pacific, with a focus on the PacELF period 1999 to present. This searchable archive consists of electronic and hard copy peer-reviewed papers, WHO documents, and programme reports, including the personal collection of Dr Kazuyo Ichimori. Some are freely available, while for some access must be requested. A collection of hard copy documents is housed at James Cook University's Townsville <a href="https://maps.jcu.edu.au/campus/townsville/" target="_blank">Bebegu Yumba Campus</a> in the <a href="https://research.jcu.edu.au/who-collaborating-centres/tropicalmedicine" target="_blank">JCU WHO Collaborating Centre for Vector-Borne and Neglected Tropical Diseases (WHO-181)</a> and may be accessed by request to <a href="mailto:pacelf@jcu.edu.au">pacelf@jcu.edu.au</a>
           </p>
 
           <p>The development of this digital library is ongoing. We are very grateful to Dr Ichimori and James Cook University's WHOCC, eResearch Centre, and library for support, especially Kent Adams, Clair Meade, Alvaro Berg Soto, Peter Wood, Steve Vandervalk and many others. Thanks to our two interns, Sinead Rush and Jessica Scott and other volunteers for hours spent cataloguing.

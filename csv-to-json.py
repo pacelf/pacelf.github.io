@@ -11,7 +11,8 @@ log = structlog.get_logger()
 structlog.configure(processors=[structlog.processors.JSONRenderer()])
 
 # path the input CSV
-CSV_FILENAME = "./PacELF_Phase4/modified/Phase_4_added_naming_conventions.csv"
+# CSV_FILENAME = "./PacELF_Phase4/modified/Phase_4_added_naming_conventions.csv"
+CSV_FILENAME = "./PacELF_Phase5/modified/Phase_5_test_2.csv"
 
 # path to the folder holding the output JSON
 OUTPUT_DIRECTORY = "./src/pages/"
@@ -147,7 +148,7 @@ if __name__ == "__main__":
     project_dir = Path(__file__).resolve().parent
     os.chdir(project_dir)
 
-    json_array_output_file = open("src/pages/pacelfv4.json", "w")
+    json_array_output_file = open("pacelfv5.json", "w")
     json_array_output_file.write(output)
 
     log.msg("Wrote JSON file: {} to disk. Exiting.".format(json_array_output_file))
