@@ -151,7 +151,7 @@
 <style>
 </style>
 <script>
-import rawJson from './pacelfv5_1.json'
+import rawJson from './pacelf-index.json'
 import ItemsJsFacets from './ItemsJsFacets.vue'
 
 export default {

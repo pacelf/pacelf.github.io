@@ -7,48 +7,82 @@ index, search and download documents.
 A static site port of a MediaFlux portal built by the JCU eResearch
 Centre.
 
-## Setup
+## Software Requirements
 
-### Requirements
+- [NodeJS v14.18.0](https://nodejs.org/download/release/v14.18.0/)
+- [Yarn version 1.22.19](https://classic.yarnpkg.com/en/docs/install#mac-stable)
+- [Python 3.10.5](https://www.python.org/downloads/)
+- This repository, pacelf/pacelf.github.io.git
 
-- [NodeJS LTS](https://nodejs.org/en/)
-- [Yarn](https://classic.yarnpkg.com/en/docs/install#mac-stable)
-- [Python 3.7](https://www.python.org/downloads/)
+Note: This website has only been built on a MacOS system.
 
-### Installation
+![Diagram of the update process](PacELF-update-overview.png)
 
-To install each of the system-level requirements on a macOS platform, you
-require the [Homebrew](https://brew.sh/) package manager. Once you have `brew`
-installed, run the following command:
+## Getting the PacELF data
 
+The PacELF team will send you a spreadsheet and share a folder with you.
+The folder contains various folders and extraneous files. This is why we 
+created the `get-pacelf-files.py` script.
+
+The only files that we need to copy are the ones in the spreadsheet that have open access rights. So there will be less files copied than there are rows in the spreadsheet.
+
+1. Save the spreadsheet as a UTF-8 CSV file, named pacelf-index.csv, at the top of the repository.
+2. Delete the files in the `src/statics/data` folder.
+3. Run the script, `get-pacelf-files.py`. It may take awhile the first time as you will be copying a lot of files. Redirect the output to a log file so that you can review it.
+   ```shell
+   python3 get-pacelf-files.py > get-files.log
+   ```
+4. Review the logfile, `get-files.log`
+5. Work with the PacELF team to resolve any errors in the spreadsheet.
+   - sometimes the filename has been entered incorrectly in the spreadsheet
+   - it may be OK for a file with Open access rights to have no filename, see the behaviour of the next script.
+6. Repeat until there are no more warnings that need to be dealt with.
+
+## Create information for Libary search functionality
+
+This script will run through the `pacelf-index.csv` file and if the 
+access rights are:
+- Contact PacELF at JCU
+   - creates a file that contains instructions to contact PacELF to gain access to the document.
+   - sets the download_url to the appropriate path
+- Open
+   - if the filename is empty is will create an access notification file (as per Contact PacELF at JCU)
+   - if the file exists, it will set the download_url to the appropriate path.
+- Open via Publisher
+   - sets the download_url to the value in the publisher's url field.
+
+Meanwhile it is building the `pacelf-index.json` file that the website needs to provide search functionality. This is saved into the correct place in the folder structure to work with the build.
+
+### Creating the JSON file
+
+1. Run the script `csv-to-json.py`. Redirect the output to a log file so that you can review the warnings.
+   ```shell
+   python3 csv-to-json.py > csv-to-json.log
+   ```
+2. Review the logfile, `csv-to-json.log`
+3. Work with the PacELF team to resolve any errors in the spreadsheet.
+4. Repeat until there are no more warnings that need to be dealt with.
+
+Note: This script assumes that the open access files are already in the `src/statics/data` folder.
+
+## Testing the website
+
+### First time
+
+The first time you want to build the website, run 
 ```shell
-brew install node yarn python3
+yarn install
 ```
+Note: After the yarn install, you can run lint over the code with `yarn lint`
 
-To set up the project and install its dependencies, run the following commands:
+### Running the website in dev mode
 
-```shell
-git clone git@github.com:pacelf/pacelf.github.io.git
-cd pacelf.github.io
-yarn
-```
-
-### Development mode
-
-To start the app in development mode (hot-code reloading, error reporting,
-etc), run the following:
-
+To open up a browser window with the PacELF Digital Library website running in it:
 ```shell
 yarn dev
 ```
 
-### Lint the JavaScript source
-
-```shell
-yarn lint
-```
-
-### Production
+### Building and running the website locally
 
 To build the app for production, run the following:
 
@@ -56,62 +90,56 @@ To build the app for production, run the following:
 yarn build
 ```
 
-The built application files are written to the `dist/pwa/` directory.
-
-To view this build, run:
+To test this build, run:
 
 ```shell
 yarn start
 ```
 
-Then, you can open <http://localhost:4000/> in your browser.
+Open <http://localhost:4000/> in your browser.
 
 
 ## Deployment
+Assumes that you have built the website in the main branch of the repository.
 
-Once you are happy with local version:
-
-1. Run `yarn build`.
-
-2. Copy the contents `dist/pwa/` and replace the entire contents of the
-`gh-pages` branch.
-
-2. Commit and push to the GitHub repository https://github.com/pacelf/pacelf.github.io.
-
+1. Clone the gh-pages branch of the repository
+   ```shell
+   git clone --branch gh-pages --single-branch git@github.com:pacelf/pacelf.github.io.git gh-pages
+   ```
+2. Delete the contents of the gh-pages repository (except the .git, .gitignore, etc)
+2. Copy the contents from `dist/pwa/` in the **main repository** thus replacing the entire contents of the `gh-pages` branch.
+3. Stage the changes, the -A option says to include adds, modifications and deletes
+   ```shell
+   git add -A
+   ```
+   Commit and push the staged changes to GitHub
+   ```shell
+   git commit -m "<commit message text>"
+   git push
+   ```
 3. GitHub Pages are already configured to serve the content of `gh-pages` branch at `https://pacelf.github.io`. See the settings at https://github.com/pacelf/pacelf.github.io/settings/pages.
+4. Look at https://github.com/pacelf/pacelf.github.io/actions to see how the deployment is progressing.
+5. Test the website
+6. If all is well, tag the changes:
+   ```shell
+   git tag -a phase<X>-gh-pages -m "website for phase <X>"
+   git push origin phase<X>-gh-pages
+   ```
+7. Add, commit and push the changes to the main branch.
 
 
-### Existing data
 
-`PacELF_Phase4/Phase4.xlsx` contains the catalogue data and `src/statics/data/` contains the PDFs, supplied by the PacELF project maintainers.
 
-## Adding new data
 
-TODO: Ask how many more phases and decide who to document this for.
 
-Basically the PacELF Excel file is converted to CSV and then parsed by `csv-to-json.py` to generate `/src/pages/pacelfv4.json`
 
-### Producing JSON data file in detail
 
-Once the raw data is correctly located as above, install the Python dependencies to convert from CSV to JSON:
 
-```shell
-pip3 install -r requirements.txt
-```
 
-and run the script:
 
-```shell
-python ./csv-to-json.py
-```
 
-This will write `pacelfv4.json` to `src/pages/`.
 
-The website uses the `src/pages/pacelfv4.json` file as a search index of the documents.
 
-Now start the Quasar app in development mode (`yarn dev`, as
-mentioned above) and test if the new data is searchable.
-
-### Customise the configuration
+## Customise the configuration
 
 See [Configuring quasar.conf.js](https://quasar.dev/quasar-cli/quasar-conf-js).
