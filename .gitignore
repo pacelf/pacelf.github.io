@@ -1,8 +1,10 @@
 .quasar
 .DS_Store
+.venv
 .thumbs.db
 node_modules
 # /dist
+/dist/.DS_Store
 /src-cordova/node_modules
 /src-cordova/platforms
 /src-cordova/plugins
