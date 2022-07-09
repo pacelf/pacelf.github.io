@@ -18,7 +18,23 @@ Note: This website has only been built on a MacOS system.
 
 ![Diagram of the update process](PacELF-update-overview.png)
 
-## Getting the PacELF data
+## Step 1
+Get access to the documents that will be going into the library and the spreadsheet that indexes the documents and contains metadata about them.
+For an example spreadsheet see the files in PacELF_Phase6/rawdata
+
+## Step 2
+Clone the main branch of this repository
+
+## Step 3
+Setup a Python virtual environment, this is needed for 3A and 3B.
+
+```shell
+python3 -m venv .venv
+source .venv/bin/activate
+python -m pip install -r requirements.txt
+```
+
+## Step 3A - Create pacelf-index.csv file and download Open Access files
 
 The PacELF team will send you a spreadsheet and share a folder with you.
 The folder contains various folders and extraneous files. This is why we 
@@ -30,7 +46,7 @@ The only files that we need to copy are the ones in the spreadsheet that have op
 2. Delete the files in the `src/statics/data` folder.
 3. Run the script, `get-pacelf-files.py`. It may take awhile the first time as you will be copying a lot of files. Redirect the output to a log file so that you can review it.
    ```shell
-   python3 get-pacelf-files.py > get-files.log
+   python get-pacelf-files.py > get-files.log
    ```
 4. Review the logfile, `get-files.log`
 5. Work with the PacELF team to resolve any errors in the spreadsheet.
@@ -38,7 +54,7 @@ The only files that we need to copy are the ones in the spreadsheet that have op
    - it may be OK for a file with Open access rights to have no filename, see the behaviour of the next script.
 6. Repeat until there are no more warnings that need to be dealt with.
 
-## Create information for Libary search functionality
+## Step 3B - Generate the pacelf-index.json file
 
 This script will run through the `pacelf-index.csv` file and if the 
 access rights are:
@@ -57,7 +73,7 @@ Meanwhile it is building the `pacelf-index.json` file that the website needs to 
 
 1. Run the script `csv-to-json.py`. Redirect the output to a log file so that you can review the warnings.
    ```shell
-   python3 csv-to-json.py > csv-to-json.log
+   python csv-to-json.py > csv-to-json.log
    ```
 2. Review the logfile, `csv-to-json.log`
 3. Work with the PacELF team to resolve any errors in the spreadsheet.
@@ -65,7 +81,7 @@ Meanwhile it is building the `pacelf-index.json` file that the website needs to 
 
 Note: This script assumes that the open access files are already in the `src/statics/data` folder.
 
-## Testing the website
+## Step 3C - Test the website in dev mode
 
 ### First time
 
@@ -82,15 +98,15 @@ To open up a browser window with the PacELF Digital Library website running in i
 yarn dev
 ```
 
-### Building and running the website locally
+## Step 3D - Build the website
 
-To build the app for production, run the following:
+To build the app for deployment, run the following:
 
 ```shell
 yarn build
 ```
 
-To test this build, run:
+### To test the build
 
 ```shell
 yarn start
@@ -99,7 +115,7 @@ yarn start
 Open <http://localhost:4000/> in your browser.
 
 
-## Deployment
+## Step 4 Publish/Deploy
 Assumes that you have built the website in the main branch of the repository.
 
 1. Clone the gh-pages branch of the repository
