@@ -16,6 +16,9 @@
               The PacELF Endgame Project and Digital Library
             </p>
           </div>
+          <div class="text-center">
+            <p>(version 7 - updated March 2023)</p>
+          </div>
           <br>
           <div>
 

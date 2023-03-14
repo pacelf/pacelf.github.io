@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "precache-manifest.80fafc756341436a8f4083b67f4132f5.js"
+  "precache-manifest.292c95670d9017030bf8a0439548efb9.js"
 );
 
 workbox.core.setCacheNameDetails({prefix: "pacelf"});
