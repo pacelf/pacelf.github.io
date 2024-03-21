@@ -3,15 +3,16 @@
 .venv
 .thumbs.db
 node_modules
-# /dist
-/dist/.DS_Store
-/src-cordova/node_modules
-/src-cordova/platforms
-/src-cordova/plugins
-/src-cordova/www
+dist
+dist/.DS_Store
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+public/documents
+scripts/inputs
+scripts/outputs
+scripts/logs
+src/components/*.json
 
 # Editor directories and files
 .idea
