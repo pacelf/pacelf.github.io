@@ -28,6 +28,16 @@ into a folder that will be part of the website.
 There is a config file, _scripts/library-config.ini_, that maps column labels, and
 some column values, to variables that the python scripts need to process the data.
 
+## How the Python scripts integrate with the frontend
+
+- **`parse-excel-file.py`**: Reads `scripts/inputs/library-index.xlsx` (sheet `Repository`) and writes the main CSV used by the build (`scripts/outputs/library-index.csv`) plus several small CSV config files (filters/search/display/multi-option) into `scripts/outputs/`.
+- **`get-library-docs.py`**: Copies open-access document files from the configured `srcPath` into the website `public/documents` folder, normalises filenames (via `scripts/libhelper.py`), and updates `scripts/outputs/library-index.csv`. Supports `--dry-run` for testing.
+- **`create-library-index.py`**: Reads `scripts/outputs/library-index.csv`, validates and cleans rows (status, access, filenames/URLs), splits multi-option fields, sets `displayURL` and `displayIcon` values, and writes `scripts/outputs/library-index.json` (site data) and `scripts/outputs/query-config.json` (search/filter configuration).
+- **Frontend consumption**: The Quasar frontend expects the generated `library-index.json` and `query-config.json` (the build process or `scripts/create-website-datafile.sh` copies these into the app). Document files are served from `public/documents` which `get-library-docs.py` populates.
+- **Config & workflow**: All paths/column mappings and icon/URL settings are centralized in `scripts/library-config.ini`. Run `bash scripts/create-website-datafile.sh` to execute the scripts in order and copy outputs into the app before building the site with Quasar.
+
+Make sure the scripts complete successfully before running the Quasar build; the frontend reads the JSON/config files that the scripts produce.
+
 The website is a static website built using the [Quasar](https://quasar.dev/) framework.
 For the [PacELF Digital Library](https://pacelf.github.io) we use [GitHub Pages](https://pages.github.com/) to make the digital library available.
 
