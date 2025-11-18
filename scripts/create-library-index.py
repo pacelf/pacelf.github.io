@@ -299,7 +299,7 @@ def create_query_config(log, lib_data, search_fields, filter_fields, multi_optio
         json.dumps(query_config), encoding="utf-8"
     )
 
-    log.info("Query config into written to {}".format(files.query_config))
+    log.info("Query config written to {}".format(files.query_config))
 
 
 if __name__ == "__main__":
