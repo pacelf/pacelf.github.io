@@ -110,7 +110,7 @@ def get_general_config(config):
     """General misc configuration values."""
     general = namedtuple("General", ["missing_value_token"])
     return general(
-        missing_value_token=config.get("General", {}).get("missing_value_token", "NO VALUE")
+        missing_value_token=config["General"]["missing_value_token"]
     )
 
 
