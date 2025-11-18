@@ -24,6 +24,8 @@ from confighelper import (
     icons,
     urls,
     files,
+    general,
+    query,
 )
 
 is_dry_run = False
@@ -265,20 +267,29 @@ def create_query_config(log, lib_data, search_fields, filter_fields, multi_optio
         #     "create_query_string: filters[{}]: {}".format(field, filters[field])
         # )
 
-    query_config = {
-        "sortings": {
-            "name_asc": {
-                "field": getattr(label, "title", "Title"),
-                "order": "asc",
-            },
+    # Use configured query sortings if present; otherwise fall back to defaults
+    configured_sortings = query if isinstance(query, dict) and query else None
+
+    if configured_sortings:
+        sortings = {}
+        for name, spec in configured_sortings.items():
+            # Map configured field names to actual values (allowing label names)
+            fields = [
+                getattr(label, f.lower(), f) if hasattr(label, f.lower()) else f
+                for f in spec.get("field", [])
+            ]
+            orders = spec.get("order", [])
+            sortings[name] = {"field": fields, "order": orders}
+    else:
+        sortings = {
+            "name_asc": {"field": getattr(label, "title", "Title"), "order": "asc"},
             "year_name_asc": {
                 "field": [getattr(label, "year", "Year"), getattr(label, "title", "Title")],
                 "order": ["desc", "asc"],
             },
-        },
-        "searchableFields": search_fields,
-        "aggregations": filters,
-    }
+        }
+
+    query_config = {"sortings": sortings, "searchableFields": search_fields, "aggregations": filters}
 
     log.debug("create_query_config: query_config({})".format(query_config))
 
@@ -320,7 +331,7 @@ if __name__ == "__main__":
     # there are no leading or trailing spaces on the contents
     lib_data = pd.read_csv(
         files.libindex_csv, dtype="str", skipinitialspace=True
-    ).fillna("NO VALUE")
+    ).fillna(general.missing_value_token)
     log.info("Initial # rows loaded: {}".format(lib_data.index.size))
 
     lib_data = remove_nonactive_rows(log, lib_data)

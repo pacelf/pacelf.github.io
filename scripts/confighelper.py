@@ -106,6 +106,52 @@ def get_urls(config):
     )
 
 
+def get_general_config(config):
+    """General misc configuration values."""
+    general = namedtuple("General", ["missing_value_token"])
+    return general(
+        missing_value_token=config.get("General", {}).get("missing_value_token", "NO VALUE")
+    )
+
+
+def get_query_config(config):
+    """Read query sort presets from config and return a dict of sortings.
+
+    The config section should contain keys with suffixes `_fields` and `_order`.
+    Fields are comma-separated. Orders are comma-separated.
+    Example:
+      name_asc_fields = Title
+      name_asc_order = asc
+      year_name_asc_fields = Year,Title
+      year_name_asc_order = desc,asc
+    """
+    query_sortings = {}
+    if "Query" not in config:
+        return query_sortings
+
+    section = config["Query"]
+    # discover unique prefixes (before the last underscore)
+    prefixes = set()
+    for key in section:
+        if key.endswith("_fields"):
+            prefixes.add(key[: -len("_fields")])
+        if key.endswith("_order"):
+            prefixes.add(key[: -len("_order")])
+
+    for prefix in prefixes:
+        fields_key = f"{prefix}_fields"
+        order_key = f"{prefix}_order"
+        fields_val = section.get(fields_key, "").strip()
+        order_val = section.get(order_key, "").strip()
+        if not fields_val:
+            continue
+        fields = [f.strip() for f in fields_val.split(",") if f.strip()]
+        orders = [o.strip() for o in order_val.split(",") if o.strip()] if order_val else []
+        query_sortings[prefix] = {"field": fields, "order": orders}
+
+    return query_sortings
+
+
 def get_internal_files():
     # these are hard-coded file paths, for internal processing
     # use only; so they don't need to be configurable.
@@ -144,3 +190,5 @@ status_types = get_status_values(config)
 icons = get_icons(config)
 urls = get_urls(config)
 files = get_internal_files()
+general = get_general_config(config)
+query = get_query_config(config)
