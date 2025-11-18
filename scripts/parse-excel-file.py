@@ -133,6 +133,10 @@ df_full = df_full.map(lambda x: x.strip() if isinstance(x, str) else x)
 # (b) Drop unwanted columns based on filter markers
 df_full = drop_unfiltered_columns(df_full, sheet_config.filterRowIdx)
 
+# Get column labels from the column header row
+col_labels = df_full.iloc[sheet_config.colHeaderRowIdx].tolist()
+df_full.columns = col_labels
+
 # (c) Extract and write config files from the first few config rows
 filter_data = (
     df_full.iloc[[sheet_config.filterRowIdx]]
@@ -156,8 +160,6 @@ multi_option_data = (
 )
 
 # (d) Extract data rows from colHeaderRowIdx onwards, clean, and write to CSV
-# Get column labels from the column header row
-col_labels = df_full.iloc[sheet_config.colHeaderRowIdx].tolist()
 # Extract data rows starting from the row after the column header row
 df_data = df_full.iloc[sheet_config.colHeaderRowIdx + 1:].copy()
 df_data.columns = col_labels
