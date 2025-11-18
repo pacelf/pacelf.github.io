@@ -13,12 +13,9 @@
 import pandas as pd
 import json
 import os
-import csv
-import re
 import logging
 import structlog
 import argparse
-import libhelper
 from confighelper import (
     docs,
     label,
@@ -222,7 +219,8 @@ def remove_nonactive_rows(log, lib_data):
     # unless there is no Status column
     initial_num_docs = lib_data.index.size
     if label.status in lib_data.columns:
-        lib_data = lib_data[lib_data.Status == status_types.active]
+        # Use the configured status column name rather than a hard-coded 'Status'
+        lib_data = lib_data[lib_data[label.status] == status_types.active]
         log.info("Extracted only the {} records to process".format(status_types.active))
 
     log.info(
@@ -270,11 +268,11 @@ def create_query_config(log, lib_data, search_fields, filter_fields, multi_optio
     query_config = {
         "sortings": {
             "name_asc": {
-                "field": "Title",
+                "field": getattr(label, "title", "Title"),
                 "order": "asc",
             },
             "year_name_asc": {
-                "field": ["Year", "Title"],
+                "field": [getattr(label, "year", "Year"), getattr(label, "title", "Title")],
                 "order": ["desc", "asc"],
             },
         },

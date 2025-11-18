@@ -86,7 +86,12 @@ if __name__ == "__main__":
     num_copied_files = 0
 
     dest_file_list = os.listdir(docs.dest_path)
-    dest_file_list.remove(".DS_Store")  # just in case the folder is on a Mac
+    try:
+        dest_file_list.remove("Thumbs.db")  # just in case the folder is on Windows
+        dest_file_list.remove(".DS_Store")  # just in case the folder is on a Mac
+    except ValueError:
+        pass
+
     # log.debug("dest_file_list ({})".format(dest_file_list))
     log.info("#files in {} is {}".format(docs.src_path, len(src_file_list)))
     log.info("#files in {} is {}".format(docs.dest_path, len(dest_file_list)))

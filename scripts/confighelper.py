@@ -17,6 +17,20 @@ def load_config():
     return config
 
 
+def get_sheet_config(config):
+    sheet_config = namedtuple(
+        "SheetValues", ["sheetname", "filterRowIdx", "searchRowIdx", "fullDisplayRowIdx", "multiOptionRowIdx", "colHeaderRowIdx"]
+    )
+    return sheet_config(
+        sheetname = config["Excel-sheet-format"]["sheetname"],
+        filterRowIdx= int(config["Excel-sheet-format"]["filterRowIdx"]),
+        searchRowIdx= int(config["Excel-sheet-format"]["searchRowIdx"]),
+        fullDisplayRowIdx= int(config["Excel-sheet-format"]["fullDisplayRowIdx"]),
+        multiOptionRowIdx= int(config["Excel-sheet-format"]["multiOptionRowIdx"]),
+        colHeaderRowIdx= int(config["Excel-sheet-format"]["colHeaderRowIdx"]),
+    )
+
+
 def get_docs_config(config):
     docs_config = namedtuple("Docs", ["file_pattern", "src_path", "dest_path"])
     return docs_config(
@@ -31,6 +45,8 @@ def get_label_config(config):
         "Labels",
         [
             "id",
+            "title",
+            "year",
             "access",
             "filename",
             "publishedURL",
@@ -41,6 +57,8 @@ def get_label_config(config):
     )
     return label_config(
         id=config["Column-labels"]["id"],
+        title=config["Column-labels"].get("title", "Title"),
+        year=config["Column-labels"].get("year", "Year"),
         access=config["Column-labels"]["access"],
         filename=config["Column-labels"]["filename"],
         publishedURL=config["Column-labels"]["publishedURL"],
@@ -90,7 +108,7 @@ def get_urls(config):
 
 def get_internal_files():
     # these are hard-coded file paths, for internal processing
-    # use only so they don't need to be configurable.
+    # use only; so they don't need to be configurable.
     local_paths = namedtuple(
         "LocalPaths",
         [
@@ -118,6 +136,7 @@ def get_internal_files():
 
 # load config info for use
 config = load_config()
+sheet_config = get_sheet_config(config)
 docs = get_docs_config(config)
 label = get_label_config(config)
 access_types = get_access_values(config)
