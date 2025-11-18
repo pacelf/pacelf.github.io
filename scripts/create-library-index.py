@@ -143,7 +143,7 @@ def remove_invalid_access_rows(log, lib_data):
     # log a warning message for these problem docs
     for index, row in problem_docs.iterrows():
         log.warning(
-            "ID {} | Invalid access value, [{}] ".format(index, row[label.access])
+            "ID {} | Invalid value in column {}, [{}] ".format(row[label.id], label.access, row[label.access])
         )
 
     # log.debug("remove_invalid_access_rows: problem_docs\n{}".format(problem_docs))
@@ -177,7 +177,7 @@ def remove_openaccess_nofilename_rows(log, lib_data):
     for index, doc in problem_docs.iterrows():
         log.warning(
             "ID {} | {} access document file is missing, {}".format(
-                index, access_types.open, doc[label.filename]
+                doc[label.id], access_types.open, doc[label.filename]
             )
         )
 
@@ -202,7 +202,7 @@ def remove_publisheraccess_nourl_rows(log, lib_data):
     for index, doc in problem_docs.iterrows():
         log.warning(
             "ID {} | Doc with {} access {} value is empty".format(
-                index, access_types.publisher, label.publishedURL
+                doc[label.id], access_types.publisher, label.publishedURL
             )
         )
 

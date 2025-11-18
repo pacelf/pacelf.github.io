@@ -27,6 +27,12 @@ OUTPUT_DIR=outputs
 LIBRARY_INDEX=inputs/library-index.xlsx
 WEBSITE_SRC_PATH=../src/components
 
+# Print start time and ensure we print finish time on exit (local timezone)
+START_TIME=$(date +"%Y-%m-%d %H:%M:%S %Z")
+echo "Script started at: ${START_TIME}"
+# Always print end time when the script exits
+trap 'echo "Script finished at: $(date +"%Y-%m-%d %H:%M:%S %Z") with exit code $?"' EXIT
+
 if [ ! -f $LIBRARY_INDEX ]; then
   echo "$LIBRARY_INDEX is missing, no processing can be done."
   exit $FAILURE
@@ -94,6 +100,12 @@ cp $OUTPUT_DIR/*.json $WEBSITE_SRC_PATH || {
   echo "ERROR: Failed to copy files."
   exit $FAILURE
 }
+
+# Show warnings from the last two script runs to make them easy to spot
+echo "--- Warnings in logs/get-library-docs.log ---"
+grep -i "warning\|warn" $LOG_DIR/get-library-docs.log || echo "(no warnings found)"
+echo "--- Warnings in logs/create-library-index.log ---"
+grep -i "warning\|warn" $LOG_DIR/create-library-index.log || echo "(no warnings found)"
 
 echo "If all good then you are ready to build the website."
 exit $SUCCESS
