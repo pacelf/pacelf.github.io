@@ -6,7 +6,7 @@ It is built using the Quasar JS framework and ItemsJS to index, search and downl
 
 Note: This website has only been built on a MacOS system.
 
-![Diagram of the update process](PacELF-update-overview_v2.png)
+![Diagram of the update process](README-resources/PacELF-update-overview_v2.png)
 
 ## Overview
 The researchers collating the documents (publications, reports, etc.) maintain a
