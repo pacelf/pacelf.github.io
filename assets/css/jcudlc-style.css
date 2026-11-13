@@ -1,0 +1,351 @@
+
+/*
+JCUDLC - JCU Digital Library Catalogue - v0.5.2
+copyright (c) James Cook University
+*/
+@scope (#jcudlc) {
+    /* box sizing inside the catalog */
+    :scope {        
+        --filter-bg: var(--jcudlc-filter-bg, #111);
+        --filter-item: var(--jcudlc-filter-item, #222);
+        --filter-active: var(--jcudlc-filter-active, #333);
+        --filter-highlight: var(--jcudlc-filter-highlight, #000);
+        --filter-text: var(--jcudlc-filter-text, #ddd);
+
+        --data-bg: var(--jcudlc-data-bg, #bbb);
+        --data-item: var(--jcudlc-data-item, #fff);
+        --data-active: var(--jcudlc-data-active, #eee);
+        --data-highlight: var(--jcudlc-data-highlight, #ffffec);
+        --data-text: var(--jcudlc-data-text, #111);
+
+        --message-good-bg: var(--jcudlc-message-bg, #ecf6ff);
+        --message-good-text: var(--jcudlc-message-good-text, #037);
+        --message-bad-bg: var(--jcudlc-message-bg, #fee);
+        --message-bad-text: var(--jcudlc-message-bad-text, #700);
+
+        --interface-bg: var(--jcudlc-interface-bg, var(--data-active));
+        --interface-text: var(--jcudlc-interface-text, var(--data-text));
+
+        --corner: var(--jcudlc-corner, 0.5rem);
+
+        --font-family: var(--jcudlc-font-family, inherit);
+
+        container-name: jcudlc;
+        container-type: inline-size;
+
+        font-family: var(--font-family);
+        box-sizing: border-box;
+        interpolate-size: allow-keywords;
+    }
+    /* -- utility styles ------------------------------- */
+    * { box-sizing: inherit; }
+    p, dl, dt, button {
+        margin: 0;
+        padding: 0;
+    }
+    .clickable  { cursor:      pointer }
+    .bold       { font-weight: bold }
+    .italic     { font-style:  italic }
+    .faded      { opacity:     0.5 }
+    .smaller    { font-size:   80% }
+    .bigger     { font-size:   125% }
+    .right      { justify-content: end;     text-align: right  }
+    .center     { justify-content: center;  text-align: center }
+
+    /* -- message styles ------------------------------- */
+    .message {
+        display: block;
+        position: relative;
+        padding: 1em 0;
+        border-radius: 3em;
+        margin: 2em auto;
+        max-width: 30em;
+        text-align: center;
+        font-size: 150%;
+        background-color: var(--message-good-bg);
+        color: var(--message-good-text);
+    }
+    .message .msg {
+        padding: 0.25em 0;
+    }
+    /* progress flavoured message */
+    .message.progress { 
+        padding-left: 3rem;
+    }
+    .message.progress::before {
+        content: "";
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' height='10' width='10'%3E%3Cpath d='M 5 1 A 4 4 0 1 0 9 5' fill='none' stroke='%23000' stroke-width='0.5' /%3E%3C/svg%3E");
+        background-size: contain;
+        height: 3rem;
+        width: 3rem;
+        position: absolute;
+        top: 50%;
+        left: 1.5rem;
+        margin-top: -1.5rem;
+        opacity: 0.5;
+        animation: spin 1s linear infinite;
+    }
+    @keyframes spin {
+        from { transform: rotate(0deg) }
+        to   { transform: rotate(360deg) }
+    }
+    /* error flavoured message */
+    .message.error { 
+        color: var(--message-bad-text);
+        background-color: var(--message-bad-bg);
+        border: 0.1em solid;
+    }
+    .message.count { font-size: 1rem }
+
+    /* -- interface styles ----------------------------- */
+    .interface {
+        padding: 0.5em;
+        margin: 0.5em 0;
+        border-radius: var(--corner);
+        text-align: center;
+        background-color: var(--interface-bg);
+        color: var(--interface-text);
+    }
+
+    /* -- dev links ------------------------------------ */
+    /* dev links are subtle links to our component files 
+    to make manual refreshing easier */
+    .devlinks a { color: var(--filter-text) }
+    .devlinks { margin: 3em 0 0 }
+
+    /* -- large scale layout --------------------------- */
+    .catalog {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        align-content: stretch;
+    }
+    .filters {
+        flex-shrink: 0;
+        flex-grow: 0;
+        background-color: var(--filter-bg);
+        color: var(--filter-text);
+        padding: 0.5em;
+        max-width: 30rem;
+        margin: 0 auto;
+    }
+    .results {
+        flex: 1 1;
+        min-height: 10em;
+        background-color: var(--data-bg);
+        color: var(--data-text);
+        padding: 0.01px 0.5em;
+    }
+    @container jcudlc (min-width: 50rem) {
+        .catalog { flex-direction: row }
+        .filters { width: 20rem }
+    }
+    /* ----------------------------------------- */
+    /* the sidebar of filters */
+    .filtersHeader {
+        padding: 1em 0;
+    }
+    /* filter for a single tag */
+    .filter {
+        padding: 0.5em;
+        transition: 0.33s;
+        background-color: var(--filter-item);
+    }
+    .filter:hover {
+        background-color: var(--filter-active);
+    }
+    .filterHead {
+        display: flex;
+        direction: row;
+        align-items: center;
+        align-content: stretch;
+    }
+    .filterLabel  { flex: 1 0; }
+
+    /* the button to open/close the list of filter items */
+    .filter .filterToggle {
+        color: inherit;
+        opacity: 0.5;
+        font-size: 110%;
+        transform: rotate(180deg);
+        transition: 0.33s;
+        background-color: rgba(0,0,0, 0);
+        height: 1.66em;
+        width: 1.66em;
+        border-radius: 50%;
+        border: none;
+    } 
+    .filterToggle:hover {
+        background-color: var(--filter-highlight);
+    }
+    .filter .filterToggle:before { content: '▼'; }
+    .filter.closed .filterToggle { transform: rotate(0); }
+
+    .filter.text {
+        position: relative;
+        padding: 1em 0.5em;
+        text-align: center;
+    }
+    .searchFilterText {
+        font-family: inherit;
+        font-size: inherit;
+        width: calc(100% - 1.5em);
+        width: 100%;
+        border: none;
+        padding: 0 2.5em 0 0.75em;
+        height: 2em;
+        line-height: 2em;
+        border-radius: 2em;
+        background-color: var(--interface-bg);
+        color: var(--interface-text);
+    }
+    .filter.text .searchNow {
+        font-family: inherit;
+        font-size: inherit;
+        position: absolute;
+        right: 0.65em;
+        top: 1.15em;
+        height: 1.75em;
+        width: 1.75em;
+        border-radius: 1em;
+        border: none;
+        font-family: 'Material Symbols Outlined';
+        background-color: var(--interface-text);
+        color: var(--interface-bg);
+    }
+    .filterList {
+        padding: 0.5em 0 0.5em 1em;
+        transition: 0.33s;
+        overflow: hidden;
+    }
+    .filter.closed .filterList {
+        padding: 0 0 0 1em;
+        height: 0;
+    }
+    /* a single possible value that you might filter on */
+    .filterItem {
+        padding: 0.5em 0; 
+        transition: 0.33s;
+    }
+    .filterItem:hover {
+        background-color: var(--filter-highlight);
+    }
+    /* ----------------------------------------- */
+    .result {
+        margin: 0.5rem 0;
+        padding: 0.5rem 1rem;
+        border-radius: var(--corner);
+        background-color: var(--data-item);
+    }
+    .result:hover {
+        background-color: var(--data-highlight);
+    }
+    .currentFilters {
+        position: relative;
+        padding: 0 0 0 7rem;
+        margin: 0.5rem 0;
+        line-height: 2.5em;
+    }
+    .filtersLabel {
+        position: absolute;
+        left: 0;
+    }
+    .filterPill {
+        display: inline-block;
+        position: relative;
+        vertical-align: middle;
+        height: 2em;
+        line-height: 2em;
+        max-width: 20em;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        padding: 0.1em 2em 0 1em;
+        border-radius: 1em;
+        background-color: var(--filter-item);
+        color: var(--filter-text);
+        font-size: 90%;
+        margin: 0 0.5em;
+    }
+    .filterPill .removeFilter {
+        position: absolute;
+        font-size: inherit;
+        top: 0;
+        bottom: 0;
+        right: 0;
+        width: 2em;
+        padding: 0;
+        text-align: center;
+        border-radius: 1em;
+        font-weight: bold;
+        border: none;
+        color: inherit;
+        background: inherit;
+    }
+    .filterPill .removeFilter:hover {
+        background-color: var(--filter-active);
+    }
+    .icon {
+        position: absolute;
+        overflow: hidden;
+        left: 0.25rem;
+        font-family: 'Material Symbols Outlined';
+        font-weight: normal;
+        font-style: normal;
+        font-size: 2rem;
+        letter-spacing: normal;
+        text-transform: none;
+        display: inline-block;
+        white-space: nowrap;
+        word-wrap: normal;
+        direction: ltr;
+        font-feature-settings: "liga";
+        width: 3.5rem;
+        height: 3.5rem;
+        line-height: 3.5rem;
+        text-align: center;
+        border-radius: 1.75rem;
+        background-color: var(--data-active);
+        transition: 0.05s;
+    }
+    .icon                 { opacity: 0.5 }
+    .icon.clickable       { opacity: 1; border: 0.14rem solid }
+    .icon.clickable:hover { transform: scale(1.3) }
+
+    .result .header {
+        position: relative;
+        padding: 0.25em 0 0.25em;
+    }
+    .result .header:has(.icon) {
+        padding-left: 4.5rem;
+        min-height: 4rem;
+    }
+    .result .quietLabel { padding: 0.5em 0 }
+    .result .details, .result .quiet { overflow: hidden; }
+    .result.closed .details, .result.closed .quiet, .result.terse .quiet {
+        height: 0;
+    }
+    .result .field {
+        display: flex;
+        width: 100%;
+        flex-direction: row;
+        align-items: first baseline;
+        padding: 0.25em 0;
+    }
+    .result .fieldLabel {
+        font-size: 70%;
+        font-style: italic;
+        min-width: 8em;
+        padding-right: 1em;
+    }
+    .result .field.unlabelled .fieldLabel { display: none; }
+    .result .fieldValue {
+        margin: 0;
+        overflow-wrap: anywhere;
+    }
+
+    /* ----------------------------------------- */
+
+
+
+}

@@ -1,0 +1,86 @@
+name: Build and publish PacELF
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  release:
+    types: [published]
+  workflow_dispatch:
+    inputs:
+      release_tag:
+        description: Existing Jekyll release tag to deploy (including for rollback)
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    if: github.event_name != 'release' || !github.event.release.prerelease
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Select manually requested tag
+        if: github.event_name == 'workflow_dispatch'
+        env:
+          RELEASE_TAG: ${{ inputs.release_tag }}
+        run: |
+          git check-ref-format "refs/tags/$RELEASE_TAG"
+          git rev-parse --verify "refs/tags/$RELEASE_TAG^{commit}"
+          git checkout --detach "refs/tags/$RELEASE_TAG"
+
+      - uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+
+      - name: Check production configuration and document links
+        run: |
+          ruby <<'RUBY'
+          require 'yaml'
+          require 'json'
+          config = YAML.load_file('_config.yml')
+          abort 'Production baseurl must be empty' unless config.fetch('baseurl') == ''
+          abort 'Unexpected production URL' unless config.fetch('url') == 'https://pacelf.github.io'
+          JSON.parse(File.read('library/jcudlc-data.json')).each do |record|
+            url = record.fetch('URL', '')
+            abort "Draft URL remains for record #{record['ID']}" if url.include?('/phase9-draft/')
+            next unless url.start_with?('/library/documents/')
+            abort "Missing document: #{url}" unless File.file?(url.delete_prefix('/'))
+          end
+          RUBY
+
+      - name: Build site
+        run: bundle exec jekyll build --baseurl ""
+        env:
+          JEKYLL_ENV: production
+
+      - uses: actions/upload-pages-artifact@v3
+        if: github.event_name == 'release' || github.event_name == 'workflow_dispatch'
+        with:
+          path: _site
+          retention-days: 1
+
+  deploy:
+    needs: build
+    if: github.event_name == 'release' || github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-24.04
+    permissions:
+      pages: write
+      id-token: write
+    concurrency:
+      group: github-pages
+      cancel-in-progress: false
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy site
+        id: deployment
+        uses: actions/deploy-pages@v5

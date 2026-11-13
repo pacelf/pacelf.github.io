@@ -1,0 +1,80 @@
+{
+    "project": "JCUDLC - JCU Digital Library Catalogue",
+    "version": "0.5.1",
+    "copyright": "copyright (c) James Cook University",
+    "dataUrl": "jcudlc-data.json",
+    "font": "Tahoma, Inter, Arial, Helvetica, sans-serif",
+    "filterText": "#fff",
+    "filterColumnBackground": "#c10015",
+    "filterItemBackground": "#9E0012",
+    "filterActiveBackground": "#75000E",
+    "filterHighlightBackground": "#4D0009",
+    "dataText": "#fff",
+    "dataColumnBackground": "#273256",
+    "dataItemBackground": "#2b476f",
+    "dataActiveBackground": "#1e3c7d",
+    "dataHighlightBackground": "#00857a",
+    "interfaceText": "#111",
+    "interfaceBackground": "#e7f2eb",
+    "alertInfoText": "#037",
+    "alertInfoBackground": "#ecf6ff",
+    "alertErrorText": "#700",
+    "alertErrorBackground": "#fee",
+    "maxResultCount": 200,
+    "iconTooltip": "Access_Rights",
+    "supportText": "contact eResearch@jcu.edu.au if problems persist",
+    "aliases": {
+        "PDF_file_name": "PDF",
+        "Access_Rights": "Access Method"
+    },
+    "hideValues": [
+        ""
+    ],
+    "quietFields": [
+        "URL",
+        "Icon",
+        "PDF_file_name",
+        "PDF"
+    ],
+    "titleFields": [
+        "Title"
+    ],
+    "titleFormat": "bold unlabelled",
+    "subtitleFields": [
+        "Authors"
+    ],
+    "subtitleFormat": "italic",
+    "quietLabel": "Additional details >",
+    "quietLabelFormat": "faded italic center smaller",
+    "noFilter": [
+        "ID",
+        "Portal_Status",
+        "Title",
+        "Description",
+        "Authors",
+        "Volume/Issue",
+        "Pages",
+        "View_at_Publisher",
+        "PDF_file_name",
+        "URL",
+        "Icon",
+        "Note",
+        "PDF"
+    ],
+    "hideFromSearch": [
+        "Portal_Status",
+        "Category",
+        "Year",
+        "Volume/Issue",
+        "Pages",
+        "View_at_Publisher",
+        "Access_Rights",
+        "Language",
+        "PDF_file_name",
+        "URL",
+        "Icon",
+        "Note",
+        "PDF",
+        "Access Method"
+    ]
+}

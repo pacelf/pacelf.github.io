@@ -1,0 +1,58 @@
+title: "PacELF Digital Library"
+description: "Our goal is to assist in achieving and documenting the elimination of lymphatic filariasis in the Pacific Region. We contribute to this by collating, synthesizing, and disseminating information on filariasis in the Pacific, in published or unpublished papers and reports, with a focus on the PacELF period from 1999 up to the end of 2020."
+url: "https://pacelf.github.io"
+baseurl: ""
+
+remote_theme: jcu-eresearch/jcu-research-website-theme@v1.2.0
+
+plugins:
+  - jekyll-remote-theme
+
+markdown: kramdown
+kramdown:
+  input: GFM
+
+defaults:
+  - scope:
+      path: ""
+      type: "pages"
+    values:
+      layout: "page"
+
+# Optional theme overrides.
+# Leave these commented to use the theme defaults. Uncomment only the settings you want to change.
+#
+theme_settings:
+  show_breadcrumbs: false
+  favicon: "/assets/images/app-logo-128x128.png"
+  app_icon: "/apple-touch-icon.png"
+  project_logo: "/assets/images/pacelf_logo.png"
+  project_logo_alt: "PacELF logo"
+  font_family: "Tahoma, Inter, Arial, Helvetica, sans-serif"
+  heading_font_family: "Tahoma, Inter, Arial, Helvetica, sans-serif"
+  primary_color: "#c10015"
+  secondary_color: "#273256"
+  secondary_text_color: "#FFFFFF"
+  secondary_link_color: "#FFFFFF"
+  accent_color: "#00857A"
+  #   text_color: "#344054"
+  #   heading_color: "#344054"
+  #   muted_text_color: "#667085"
+  #   background_color: "#FFFFFF"
+  surface_color: "#FFFFFF"
+#   border_color: "#D0D5DD"
+#   table_banded_rows: true
+#   block_separator_style: "none"
+#   landing_block_separators: false
+#   partner_logo_max_height: "6rem"
+#   partner_logo_max_items_per_row: 3
+#   image_gallery_max_items_per_row: 3
+#   page_card_columns: 3
+#   page_card_link_text: "Read more"
+
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - README.md
+  - SAMPLE_CONTENT.md
+  - PUBLISHING.md
