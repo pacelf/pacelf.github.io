@@ -50,7 +50,10 @@ theme_settings:
 #   page_card_columns: 3
 #   page_card_link_text: "Read more"
 
+# Jekyll 3 replaces its default exclusions when this list is provided.
 exclude:
+  - vendor
+  - node_modules
   - Gemfile
   - Gemfile.lock
   - README.md
